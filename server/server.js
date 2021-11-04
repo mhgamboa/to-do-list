@@ -48,14 +48,33 @@ app
   })
   .post((req, res) => {
     console.log("Post request received");
-    console.log("Req body being sent: ", req.body);
+    console.log("Req body being sent: ", req.body.name);
     res.send("Post");
 
     (async () => {
       try {
         await client.connect();
         const collection = client.db("ToDo").collection("list");
-        await collection.insertOne(req.body);
+        await collection.insertOne({ name: req.body.name });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        await client.close();
+      }
+    })();
+  })
+  .delete((req, res) => {
+    console.log("Delete Req recieved");
+    console.log(req.body.name);
+
+    (async () => {
+      try {
+        await client.connect();
+        const collection = client.db("ToDo").collection("list");
+        const result = await collection.deleteOne({ name: req.body.name });
+        console.log(result);
+
+        res.send("Delete");
       } catch (e) {
         console.error(e);
       } finally {

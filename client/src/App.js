@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
+import ToDoService from "./services/toDo";
 
 function App() {
+  const [list, updateList] = useState([]);
+  const [userInput, updateUserInput] = useState("");
+
+  const retrieveToDos = () => {
+    ToDoService.getItems().then((response) => {
+      updateList(response.data);
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello World</h1>
+      <button
+        onClick={() => {
+          retrieveToDos();
+        }}
+      >
+        Here are the items:
+      </button>
+      <h2>Here's the list:</h2>
+      <ul>
+        {list.map((listItem) => (
+          <li key={listItem}>{listItem}</li>
+        ))}
+      </ul>
     </div>
   );
 }

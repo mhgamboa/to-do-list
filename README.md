@@ -21,4 +21,52 @@ client.connect((err) => {
 - When your done with your connection you'll want to run `client.close()` to close the connection
 - `app.use(express.json())` Parses the data sent in a post request
 
+**MAKING REQUESTS FROM FRONTEND TO BACKEND**
+
+- In `client`folder run `npm i axios`
+- create a file `src/http-common.js`. Put the following code in this file:
+
+```
+import axios from "axios";
+
+export default axios.create({
+  baseURL: "http://localhost:8000", //Put whatever your server port number is
+  header: {
+    "Content-type": "application/json",
+  },
+});
+```
+
+- create a file `src/services/toDo.js`. Put the following code in this file:
+
+```
+import http from "../http-common.js";
+
+class toDoDataService {
+  getItems() {
+    return http.get("/get/Route");
+  }
+
+  delteItems() {
+    return http.delete("/delete/Route");
+  }
+}
+
+export default new toDoDataService();
+```
+
+- In app.js put in the following code:
+
+```
+import ToDoService from "./services/toDo";
+...
+const [list, updateList] = useState([]);
+
+const retrieveToDos = () => {
+  ToDoService.getItems().then((response) => {
+    updateList(response.data);
+  });
+};
+```
+
 ## To Do

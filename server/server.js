@@ -18,6 +18,8 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
 });
 
+const db = client.db("ToDo");
+
 // Set Up Server
 app.listen(port, () => {
   console.log(
@@ -34,7 +36,7 @@ app
     (async () => {
       try {
         await client.connect();
-        const collection = client.db("ToDo").collection("list");
+        const collection = db.collection("list");
         const result = await collection.find({}).toArray();
         items = result.map((item) => item.name);
 
@@ -42,43 +44,41 @@ app
       } catch (e) {
         console.error(e);
       } finally {
-        await client.close();
+        client.close();
       }
     })();
   })
   .post((req, res) => {
     console.log("Post request received");
     console.log("Req body being sent: ", req.body.name);
-    res.send("Post");
 
     (async () => {
       try {
         await client.connect();
-        const collection = client.db("ToDo").collection("list");
+        const collection = db.collection("list");
         await collection.insertOne({ name: req.body.name });
+        res.end();
       } catch (e) {
         console.error(e);
       } finally {
-        await client.close();
+        client.close();
       }
     })();
   })
   .delete((req, res) => {
     console.log("Delete Req recieved");
-    console.log(req.body.name);
+    console.log("Req body being sent: ", req.body);
 
     (async () => {
       try {
         await client.connect();
-        const collection = client.db("ToDo").collection("list");
-        const result = await collection.deleteOne({ name: req.body.name });
-        console.log(result);
-
-        res.send("Delete");
+        const collection = db.collection("list");
+        await collection.deleteOne({ name: req.body.name });
+        res.end();
       } catch (e) {
         console.error(e);
       } finally {
-        await client.close();
+        client.close();
       }
     })();
   });

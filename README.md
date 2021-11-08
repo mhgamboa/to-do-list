@@ -65,7 +65,7 @@ const [list, updateList] = useState([]);
 const retrieveToDos = () => {
   ToDoService.getItems().then((response) => {
     updateList(response.data);
-  });
+  }).catch(err => console.error(err));
 };
 ```
 

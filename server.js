@@ -27,6 +27,10 @@ app.listen(port, () => {
   );
 });
 
+if (process.env.ATLAS_URI === "production") {
+  app.use(express.static("../client/build"));
+}
+
 // Route Basic Route
 app
   .route("/")

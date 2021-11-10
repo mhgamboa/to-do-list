@@ -24,7 +24,8 @@ function App() {
     }
   };
 
-  const updateToDos = async () => {
+  const updateToDos = async (e) => {
+    e.preventDefault();
     try {
       console.log("Post request sent");
       await ToDoService.createItem({ name: userInput });
@@ -53,20 +54,22 @@ function App() {
   return (
     <div className="App">
       <h1>My To Do List</h1>
-      <input
-        type="text"
-        name="name"
-        value={userInput}
-        placeholder="Enter an Item Here..."
-        onChange={(e) => updateUserInput(e.target.value)}
-      />
-      <button
-        onClick={() => {
-          updateToDos();
-        }}
-      >
-        Add To List
-      </button>
+      <form>
+        <input
+          type="text"
+          name="name"
+          value={userInput}
+          placeholder="Enter an Item Here..."
+          onChange={(e) => updateUserInput(e.target.value)}
+        />
+        <button
+          onClick={(e) => {
+            updateToDos(e);
+          }}
+        >
+          Add To List
+        </button>
+      </form>
       <h2>Here's the list:</h2>
       <ul>
         {list.map((listItem) => (

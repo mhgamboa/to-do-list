@@ -8,7 +8,8 @@ const port = process.env.PORT || 8000;
 const uri = process.env.MONGO_URI;
 
 // middleware
-app.use(express.json());
+app.use(express.static("./public"));
+app.use(express.json()); //Parses all incoming responses. Assumes all incoming requests are json
 
 // routes
 app.use("/api/v1/tasks", tasks);

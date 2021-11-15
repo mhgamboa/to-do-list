@@ -81,7 +81,7 @@ Here are the list of all requests we want to make:
 2.  Create new task `app.get("/api/v1/tasks")`
 3.  Get single task `app.get("/api/v1/tasks/:id")`
 4.  Update single task `app.get("/api/v1/tasks/:id")`
-5.  Delete single gask `app.get("/api/v1/tasks/:id")`
+5.  Delete single task `app.get("/api/v1/tasks/:id")`
 
 - The **routes folder** routes all of the requests. **This is imported into app.js**
 - The **controllers folder** is the logic where routes send the requests to. **This is not imported into app.js**

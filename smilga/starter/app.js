@@ -1,6 +1,8 @@
 const express = require("express");
 const tasks = require("./routes/tasks");
 const connectDB = require("./db/connect");
+const notFound = require("./middleware/not-found");
+const errorHandlerMiddleware = require("./middleware/error-handler");
 
 const app = express();
 require("dotenv").config();
@@ -10,13 +12,12 @@ const uri = process.env.MONGO_URI;
 // middleware
 app.use(express.static("./public"));
 app.use(express.json()); //Parses all incoming responses. Assumes all incoming requests are json
+app.use(errorHandlerMiddleware);
 
 // routes
 app.use("/api/v1/tasks", tasks);
 
-app.get("/hello", (req, res) => {
-  res.send("Task Manger");
-});
+app.use("/", notFound);
 
 // Server/DB Connection
 

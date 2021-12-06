@@ -72,27 +72,3 @@ const retrieveToDos = () => {
   }).catch(err => console.error(err));
 };
 ```
-
-## John Smilga
-
-Here are the list of all requests we want to make:
-
-1.  Get all tasks `app.get("/api/v1/tasks")`
-2.  Create new task `app.get("/api/v1/tasks")`
-3.  Get single task `app.get("/api/v1/tasks/:id")`
-4.  Update single task `app.get("/api/v1/tasks/:id")`
-5.  Delete single task `app.get("/api/v1/tasks/:id")`
-
-- The **routes folder** routes all of the requests. **This is imported into app.js**
-- The **controllers folder** is the logic where routes send the requests to. **This is not imported into app.js**
-
-- Use `put()` when you want to **update the entirety** of a document
-- Use `patch()` when you want to **update part** of a document
-
-- When you route to a path with a semi colone (Like `router.route("/:foo")`), the request object may contain anything in place of "foo". The content of foo will be available within the request object as a parameter with **req.params**.foo
-
-- I am creating a REST api by creating all of these routes and controllers.
-  > "[A Rest API] combines http verbs, route paths and our resources (the data). It is a pattern, not a list of hard rules"
-- **REST apis send/recieve data in json format** by convention
-
-- In mongoose the model is a wrapper for the schema. The schema defines the structure for the document. The model provides an interface to the database - the model allows us to CRUD data in the database

@@ -10,15 +10,27 @@ const connectDB = require("./db/connect");
 // middleware
 app.use(express.json());
 
-// start app
+// routes
+const authRouter = require("./routes/auth");
+const itemsRouter = require("./routes/items");
 
-(async () => {
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/items", itemsRouter);
+app.get("/", (req, res) => {
+  console.log(req);
+  res.send("root");
+  res.end();
+});
+
+// start app
+const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
-    app.listen(3001, (req, res) => {
+    app.listen(port, (req, res) => {
       console.log(`server is listening on port ${port}`);
     });
   } catch (e) {
     console.error(e);
   }
-})();
+};
+start();

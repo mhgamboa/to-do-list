@@ -1,10 +1,10 @@
 # to-do-list
 
-- I made this as a mern stack app, but can't deploy it as of now. I'm attempting to do it as EJS as well. Perhaps I will attempt NextJS afterwards
+- First Mern Stack api with complete REST api
 
-## Mern Attempt
+## Mern (first) Attempt
 
-- Trying to make my first fullstack project. WISH ME LUCK.
+- Trying to make my first fullstack project
 
 ### Takeaways
 

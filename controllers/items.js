@@ -21,7 +21,11 @@ const deleteItem = async (req, res) => {
 };
 
 const updateItem = async (req, res) => {
-  res.status(200).send("Update Item Controller");
+  const item = await Item.findOneAndRemove({
+    createdBy: req.body.userId,
+    name: req.params.id,
+  });
+  res.status(StatusCodes.ACCEPTED).send(item);
 };
 
 module.exports = { getAllItems, createItem, deleteItem, updateItem };

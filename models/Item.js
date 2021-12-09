@@ -7,6 +7,10 @@ const ItemSchema = new mongoose.Schema({
     required: [true, "Please provide a name"],
     minlength: 5,
   },
+  dueDate: {
+    type: Date,
+    required: false,
+  },
   completed: { type: Boolean, default: false },
   createdBy: {
     type: mongoose.Types.ObjectId,

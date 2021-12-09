@@ -11,16 +11,8 @@ const connectDB = require("./db/connect");
 app.use(express.json());
 
 // routes
-const authRouter = require("./routes/auth");
-const itemsRouter = require("./routes/items");
-
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/items", itemsRouter);
-app.get("/", (req, res) => {
-  console.log(req);
-  res.send("root");
-  res.end();
-});
+app.use("/api/v1/auth", require("./routes/auth"));
+app.use("/api/v1/items", require("./routes/items"));
 
 // start app
 const start = async () => {
@@ -33,4 +25,5 @@ const start = async () => {
     console.error(e);
   }
 };
+
 start();

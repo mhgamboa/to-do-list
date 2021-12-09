@@ -12,7 +12,11 @@ app.use(express.json());
 
 // routes
 app.use("/api/v1/auth", require("./routes/auth"));
-app.use("/api/v1/items", require("./routes/items"));
+app.use(
+  "/api/v1/items",
+  require("./middleware/auth"),
+  require("./routes/items")
+);
 
 // start app
 const start = async () => {

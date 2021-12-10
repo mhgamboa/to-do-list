@@ -26,6 +26,10 @@ const deleteItem = async (req, res) => {
     _id: itemId,
   });
 
+  if (!item) {
+    return res.status(401).json({ msg: "Please send a valid Request" });
+  }
+
   res.status(200).send(item);
 };
 
@@ -34,7 +38,7 @@ const updateItem = async (req, res) => {
   const { userId } = req.user;
   const { itemId } = req.params;
 
-  const item = await Item.findByIdAndUpdate(
+  const item = await Item.findOneAndUpdate(
     { _id: itemId, createdBy: userId },
     {
       name,
@@ -43,6 +47,9 @@ const updateItem = async (req, res) => {
     },
     { new: true, runValidators: true }
   );
+  if (!item) {
+    return res.status(401).json({ msg: "Please send a valid Request" });
+  }
   res.status(StatusCodes.ACCEPTED).send(item);
 };
 

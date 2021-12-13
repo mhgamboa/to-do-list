@@ -4,8 +4,11 @@
   "description": "First Mern Stack api with complete REST api",
   "main": "index.js",
   "scripts": {
+    "client-install": "cd client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently --kill-others -n 'server,client' -c 'yellow,blue'  \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",

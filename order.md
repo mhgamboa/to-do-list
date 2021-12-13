@@ -1,6 +1,6 @@
 1. Backend
    1. npm init -y
-      1. `npm i dotenv express concurrently mongoose express-async-errors`
+      1. `npm i dotenv express mongoose express-async-errors`
       2. `npm i nodemon -D`
       3. scripts: {"devstart": nodemon app.js}
    2. app.js
@@ -36,4 +36,8 @@
       6. `app.use(cors());`
       7. `app.use(xss());`
 2. Frontend
-   1.create a folder in `root` called `client`
+   1. In roon -> `npx create-react-app app-name`
+   2. `npm i concurrently`
+   3. package.json:
+      1. `"scripts": {"client": "cd client && npm start"}` to run client
+      2. `"dev": "concurrently --kill-others -n 'server,client' -c 'yellow,blue' \"npm run server\" \"npm run client\""` to run client and server at the same time

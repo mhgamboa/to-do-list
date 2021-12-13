@@ -41,3 +41,6 @@
    3. package.json:
       1. `"scripts": {"client": "cd client && npm start"}` to run client
       2. `"dev": "concurrently --kill-others -n 'server,client' -c 'yellow,blue' \"npm run server\" \"npm run client\""` to run client and server at the same time
+   4. `cd client` `npm i react-router-dom`
+      1. Follow Documentation on Setup
+   5. `cd client` `npm i react-bootstrap` or whatever library you want

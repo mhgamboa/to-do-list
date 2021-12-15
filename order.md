@@ -36,11 +36,12 @@
       6. `app.use(cors());`
       7. `app.use(xss());`
 2. Frontend
-   1. In roon -> `npx create-react-app app-name`
+   1. In root -> `npx create-react-app app-name`
    2. `npm i concurrently`
    3. package.json:
       1. `"scripts": {"client": "cd client && npm start"}` to run client
       2. `"dev": "concurrently --kill-others -n 'server,client' -c 'yellow,blue' \"npm run server\" \"npm run client\""` to run client and server at the same time
-   4. `cd client` `npm i react-router-dom`
-      1. Follow Documentation on Setup
-   5. `cd client` `npm i react-bootstrap` or whatever library you want
+   4. `cd client`
+      1. `npm i react-router-dom` -> [Follow Documentation on Setup](https://reactrouter.com/docs/en/v6/getting-started/installation#create-react-app)
+      2. `npm i react-bootstrap` or whatever library you want
+      3. update package.json: `"proxy": "https://localhost:xxxx/"`

@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("express-async-errors");
+const path = require("path");
 
 // extra security packages
 const helmet = require("helmet");
@@ -28,6 +29,12 @@ app.use(cors());
 app.use(xss());
 
 // routes
+// app.use(express.static(path.join(__dirname, "../client/build")));
+app.post("/hello", (req, res) => {
+  // console.log(req);
+  console.log(req.body);
+  res.json(req.body);
+});
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use(
   "/api/v1/items",

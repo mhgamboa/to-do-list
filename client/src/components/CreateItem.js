@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const CreateItem = setList => {
+  // TODO: have submission for not update state (Like Login form)
   let [newItem, updateNewItem] = useState("");
 
   const handleSubmit = e => {

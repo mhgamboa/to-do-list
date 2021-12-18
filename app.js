@@ -31,11 +31,7 @@ app.use(xss());
 // routes
 // app.use(express.static(path.join(__dirname, "../client/build")));
 app.use("/api/v1/auth", require("./routes/auth"));
-app.use(
-  "/api/v1/items",
-  require("./middleware/auth"),
-  require("./routes/items")
-);
+app.use("/api/v1/items", require("./middleware/auth"), require("./routes/items"));
 
 // more middleware after routes
 app.use(require("./middleware/not-found")); // 404 middleware

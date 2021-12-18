@@ -45,3 +45,6 @@
       1. `npm i react-router-dom` -> [Follow Documentation on Setup](https://reactrouter.com/docs/en/v6/getting-started/installation#create-react-app)
       2. `npm i react-bootstrap` or whatever library you want
       3. update package.json: `"proxy": "https://localhost:xxxx/"`
+   5. Design component tree. Build basic structure
+   6. Create Front end design for each component
+   7. Use Axios to login to backend where needed

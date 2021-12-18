@@ -1,10 +1,16 @@
-import { Form, Card, Button, Alert } from "react-bootstrap";
-import { useState } from "react";
+import { Form, Card, Button, Alert, Container, Row } from "react-bootstrap";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [viewError, setViewError] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token") && localStorage.getItem("name"))
+      window.location.href = "/home";
+  }, []);
+
   const handleLogin = async e => {
     e.preventDefault();
     const email = e.target[0].value;
@@ -15,6 +21,7 @@ const Login = () => {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("name", res.data.user.name);
+      window.location.href = "/home";
     } catch (err) {
       err.response.data.msg
         ? setErrorMessage(err.response.data.msg)
@@ -27,27 +34,35 @@ const Login = () => {
   };
 
   return (
-    <Card className="p-4 shadow" border="dark">
-      <Form className="" onSubmit={handleLogin}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" defaultValue="test1@gmail.com" />
-        </Form.Group>
+    <Container>
+      <Row>
+        <Card className="p-4 shadow" border="dark">
+          <Form className="" onSubmit={handleLogin}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                defaultValue="test1@gmail.com"
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" defaultValue="password123" />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" defaultValue="password123" />
+            </Form.Group>
 
-        <Alert variant="danger" show={viewError} className="text-center" transition>
-          {errorMessage}
-        </Alert>
+            <Alert variant="danger" show={viewError} className="text-center" transition>
+              {errorMessage}
+            </Alert>
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </Card>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Card>
+      </Row>
+    </Container>
   );
 };
 

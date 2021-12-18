@@ -1,19 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ToDoList from "../components/ToDoList";
 import CreateItem from "../components/CreateItem";
+import { Container, Row } from "react-bootstrap";
 
-const initialState = [
-  { name: "do laundry", completed: false, _id: "bhsfdasjkd" },
-  { name: "do dishes", completed: true, _id: "bhsfdsdfasjkd" },
-  { name: "Wash car", completed: true, _id: "bhsfdsdfasjkw2d" },
-];
 const Home = () => {
-  const [list, setList] = useState(initialState);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("name") || !localStorage.getItem("token")) {
+      return (window.location.href = "/");
+    }
+  }, []);
+
   return (
-    <div className="px-4">
-      <CreateItem setList={setList} />
-      <ToDoList list={list} setList={setList} />
-    </div>
+    <Container className="px-4">
+      <Row>
+        <CreateItem setList={setList} />
+      </Row>
+      <Row>
+        <ToDoList list={list} setList={setList} />
+      </Row>
+    </Container>
   );
 };
 

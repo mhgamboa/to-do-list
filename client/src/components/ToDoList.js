@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import ConfirmModal from "./DeleteModal";
 
 const List = ({ list, setList }) => {
+  const [modalShow, setModalShow] = useState(false);
+
   useEffect(() => {
     console.log("Get all items:");
     getAllItems(localStorage.getItem("token"));
@@ -22,6 +25,7 @@ const List = ({ list, setList }) => {
 
   return (
     <main className="toDoList">
+      <ConfirmModal show={modalShow} onHide={() => setModalShow(false)} />
       <table className="table border mt-5">
         <thead>
           <tr>
@@ -41,7 +45,9 @@ const List = ({ list, setList }) => {
                   <Button variant="light">✏️</Button>
                 </td>
                 <td>
-                  <Button variant="light">🗑️</Button>
+                  <Button variant="light" onClick={() => setModalShow(true)}>
+                    🗑️
+                  </Button>
                 </td>
               </tr>
             );

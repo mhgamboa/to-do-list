@@ -13,7 +13,7 @@ const createItem = async (req, res) => {
   const { userId } = req.user;
   const { name, dueDate } = req.body;
 
-  console.log(req.user.userId);
+  console.log("Create Item Received");
   // console.log({ userId, name, dueDate });
   // const item = await Item.create({ createdBy: userId, name, dueDate });
   res.status(201).json({ msg: received });

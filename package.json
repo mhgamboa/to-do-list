@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon app.js",
     "client": "cd client && npm start",
-    "dev": "concurrently --kill-others -n 'server,client' -c 'yellow,blue'  \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others -n 'server,client' -c 'yellow,green'  \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -37,5 +37,9 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
+  },
+  
+  "nodemonConfig": {
+      "ignore": ["client/*"]
   }
 }

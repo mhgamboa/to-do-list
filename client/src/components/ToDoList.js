@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
-import DeleteModal from "./DeleteModal";
+import ModalComponent from "./ModalComponent";
 
 const List = ({ list, setList }) => {
-  const [deleteModalShow, setDeleteModalShow] = useState(false);
+  const [showModal, toggleShowModal] = useState(false);
   const [itemName, setItemName] = useState("");
   const [item_id, setItem_id] = useState("");
+  const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     console.log("Get all items:");
     getAllItems(localStorage.getItem("token"));
   }, []);
 
-  useEffect(() => {
-    console.log("item_id:", item_id);
-    console.log("itemName:", itemName);
-  });
+  // useEffect(() => {
+
+  // });
 
   const getAllItems = async token => {
     try {
@@ -30,28 +30,26 @@ const List = ({ list, setList }) => {
     }
   };
 
-  const handleDeleteModal = e => {
-    if (item_id != "") {
-      setItem_id("");
-    } else {
-      setItem_id(e.target.parentNode.parentNode.getAttribute("_id"));
-    }
-    if (itemName !== "") {
-      setItemName("");
-    } else {
-      setItemName(e.target.parentNode.parentNode.childNodes[0].innerText);
-    }
-    setDeleteModalShow(prevDeleteModalShow => !prevDeleteModalShow);
-  };
+  const handleModal = e => {
+    setItem_id(e.target.parentElement.parentElement.getAttribute("_id"));
+    setItemName(e.target.parentElement.parentElement.children[0].innerText);
+    e.target.innerText === "🗑️" ? setModalType("delete") : setModalType("update");
 
-  const deleteItem = () => {
-    setDeleteModalShow(false);
-    console.log(item_id);
+    toggleShowModal(true);
   };
 
   return (
     <main className="toDoList">
-      <DeleteModal show={deleteModalShow} onHide={handleDeleteModal} deleteitem={deleteItem} />
+      <ModalComponent
+        show={showModal}
+        toggleShowModal={toggleShowModal}
+        itemName={itemName}
+        setItemName={setItemName}
+        item_id={item_id}
+        setItem_id={setItem_id}
+        modalType={modalType}
+        setModalType={setModalType}
+      />
       <table className="table border mt-5">
         <thead>
           <tr>
@@ -68,10 +66,12 @@ const List = ({ list, setList }) => {
                 <td className="h4">{item.name}</td>
                 {item.completed ? <td>✔️</td> : <td>❌</td>}
                 <td>
-                  <Button variant="light">✏️</Button>
+                  <Button variant="light" onClick={handleModal}>
+                    ✏️
+                  </Button>
                 </td>
                 <td>
-                  <Button variant="light" onClick={handleDeleteModal}>
+                  <Button variant="light" onClick={handleModal}>
                     🗑️
                   </Button>
                 </td>

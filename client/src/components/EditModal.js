@@ -11,7 +11,7 @@ const DeleteModal = props => {
         <p>Deleting items can't be undone</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={props.deleteitem}>
+        <Button variant="warning" onClick={props.onHide}>
           DELETE
         </Button>
       </Modal.Footer>

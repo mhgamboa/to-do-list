@@ -11,13 +11,13 @@ const getAllItems = async (req, res) => {
 
 const createItem = async (req, res) => {
   const { userId } = req.user;
-  const { name, dueDate } = req.body;
+  const { name } = req.body;
 
   console.log("Create Item Received");
-  // console.log({ userId, name, dueDate });
-  // const item = await Item.create({ createdBy: userId, name, dueDate });
+  // console.log({ userId, name });
+  // const item = await Item.create({ createdBy: userId, name });
   res.status(201).json({ msg: received });
-  // res.status(201).json({ userId, name, dueDate });
+  // res.status(201).json({ userId, name });
   // res.status(201).json(item);
 };
 
@@ -38,7 +38,7 @@ const deleteItem = async (req, res) => {
 };
 
 const updateItem = async (req, res) => {
-  const { name, dueDate, completed } = req.body;
+  const { name, completed } = req.body;
   const { userId } = req.user;
   const { itemId } = req.params;
 
@@ -46,7 +46,6 @@ const updateItem = async (req, res) => {
     { _id: itemId, createdBy: userId },
     {
       name,
-      dueDate,
       completed,
     },
     { new: true, runValidators: true }

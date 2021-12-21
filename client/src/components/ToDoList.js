@@ -14,10 +14,6 @@ const List = ({ list, setList }) => {
     getAllItems(localStorage.getItem("token"));
   }, []);
 
-  // useEffect(() => {
-
-  // });
-
   const getAllItems = async token => {
     try {
       const res = await axios.get("/api/v1/items", {
@@ -49,6 +45,8 @@ const List = ({ list, setList }) => {
         setItem_id={setItem_id}
         modalType={modalType}
         setModalType={setModalType}
+        getAllItems={getAllItems}
+        setList={setList}
       />
       <table className="table border mt-5">
         <thead>

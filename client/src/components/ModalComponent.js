@@ -1,4 +1,6 @@
 import { Modal, Button, Form } from "react-bootstrap";
+import axios from "axios";
+// import { getAllItems } from "../../../controllers/items";
 
 const ModalComponent = props => {
   const closeModal = () => {
@@ -13,8 +15,25 @@ const ModalComponent = props => {
     closeModal();
   };
 
-  const updateItem = () => {
+  const updateItem = async e => {
     console.log("update");
+    e.preventDefault();
+    const name = e.target[0].value;
+    const completed = e.target[1].checked;
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await axios.patch(
+        `/api/v1/items/${props.item_id}`,
+        { name, completed },
+        { headers: { authorization: `Bearer ${token}` } }
+      );
+
+      await props.getAllItems(token);
+    } catch (err) {
+      console.log(err.response.data);
+    }
+
     closeModal();
   };
 
@@ -51,8 +70,8 @@ const ModalComponent = props => {
               <Form.Label>Completed?</Form.Label>
             </Form.Group>
 
-            <Button variant="warning" type="submit">
-              EDIT
+            <Button variant="primary" type="submit">
+              Submit
             </Button>
           </Form>
         )}

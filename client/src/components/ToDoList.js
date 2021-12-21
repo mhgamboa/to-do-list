@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Button } from "react-bootstrap";
 import ModalComponent from "./ModalComponent";
 
-const List = ({ list, setList }) => {
+const List = ({ list, setList, getAllItems }) => {
   const [showModal, toggleShowModal] = useState(false);
   const [itemName, setItemName] = useState("");
   const [item_id, setItem_id] = useState("");
@@ -13,18 +12,6 @@ const List = ({ list, setList }) => {
     console.log("Get all items:");
     getAllItems(localStorage.getItem("token"));
   }, []);
-
-  const getAllItems = async token => {
-    try {
-      const res = await axios.get("/api/v1/items", {
-        headers: { authorization: `Bearer ${token}` },
-      });
-      const newList = res.data;
-      setList(newList);
-    } catch (err) {
-      console.log(err.response.data);
-    }
-  };
 
   const handleModal = e => {
     setItem_id(e.target.parentElement.parentElement.getAttribute("_id"));
@@ -53,8 +40,8 @@ const List = ({ list, setList }) => {
           <tr>
             <th scope="col">Item</th>
             <th scope="col">Completed?</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete Item?</th>
+            <th scope="col">Edit Item</th>
+            <th scope="col">Delete Item</th>
           </tr>
         </thead>
         <tbody>

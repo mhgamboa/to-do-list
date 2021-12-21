@@ -13,12 +13,9 @@ const createItem = async (req, res) => {
   const { userId } = req.user;
   const { name } = req.body;
 
-  console.log("Create Item Received");
-  // console.log({ userId, name });
-  // const item = await Item.create({ createdBy: userId, name });
-  res.status(201).json({ msg: received });
+  const item = await Item.create({ createdBy: userId, name });
   // res.status(201).json({ userId, name });
-  // res.status(201).json(item);
+  res.status(201).json(item);
 };
 
 const deleteItem = async (req, res) => {

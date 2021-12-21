@@ -24,10 +24,10 @@ const CreateItem = ({ getAllItems }) => {
       <Form.Label className="h1 w-full col-12">Enter an Item</Form.Label>
       <Row>
         <Col xs={10}>
-          <Form.Control type="text" placeholder="Enter An Item" className="col-6" />
+          <Form.Control type="text" placeholder="Enter An Item" className="col-6 shadow-sm" />
         </Col>
         <Col xs={2}>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="shadow-sm">
             Submit
           </Button>
         </Col>

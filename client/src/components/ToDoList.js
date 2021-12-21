@@ -20,6 +20,7 @@ const List = ({ list, setList, getAllItems }) => {
 
     toggleShowModal(true);
   };
+  console.log(window.screen.width);
 
   return (
     <main className="toDoList">
@@ -35,11 +36,11 @@ const List = ({ list, setList, getAllItems }) => {
         getAllItems={getAllItems}
         setList={setList}
       />
-      <table className="table border mt-5">
+      <table className="table border mt-5 shadow">
         <thead>
           <tr>
             <th scope="col">Item</th>
-            <th scope="col">Completed?</th>
+            {window.screen.width >= 475 && <th scope="col">Completed?</th>}
             <th scope="col">Edit Item</th>
             <th scope="col">Delete Item</th>
           </tr>
@@ -48,16 +49,19 @@ const List = ({ list, setList, getAllItems }) => {
           {list.map(item => {
             return (
               <tr key={item._id} _id={item._id} className="bg-light border p-3">
-                <td className="h4">{item.name}</td>
-                {item.completed ? <td>✔️</td> : <td>❌</td>}
+                <td className={`h4 ${item.completed && "text-decoration-line-through"}`}>
+                  {item.name}
+                </td>
+                {window.screen.width >= 475 &&
+                  (item.completed ? <td className="h4">✔️</td> : <td className="h4">❌</td>)}
                 <td>
                   <Button variant="light" onClick={handleModal}>
-                    ✏️
+                    <span className="h4">✏️</span>
                   </Button>
                 </td>
                 <td>
                   <Button variant="light" onClick={handleModal}>
-                    🗑️
+                    <span className="h4">🗑️</span>
                   </Button>
                 </td>
               </tr>

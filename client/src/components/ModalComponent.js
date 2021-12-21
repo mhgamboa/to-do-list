@@ -10,20 +10,28 @@ const ModalComponent = props => {
     props.toggleShowModal(false);
   };
 
-  const deleteItem = () => {
-    console.log("delete");
+  const deleteItem = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.delete(`/api/v1/items/${props.item_id}`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      await props.getAllItems(token);
+    } catch (err) {
+      console.log(err.response.data);
+    }
     closeModal();
   };
 
   const updateItem = async e => {
-    console.log("update");
     e.preventDefault();
     const name = e.target[0].value;
     const completed = e.target[1].checked;
     const token = localStorage.getItem("token");
 
     try {
-      const res = await axios.patch(
+      await axios.patch(
         `/api/v1/items/${props.item_id}`,
         { name, completed },
         { headers: { authorization: `Bearer ${token}` } }

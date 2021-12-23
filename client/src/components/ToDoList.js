@@ -5,6 +5,7 @@ import ModalComponent from "./ModalComponent";
 const List = ({ list, setList, getAllItems }) => {
   const [showModal, toggleShowModal] = useState(false);
   const [itemName, setItemName] = useState("");
+  const [itemCompleted, setItemCompleted] = useState(false);
   const [item_id, setItem_id] = useState("");
   const [modalType, setModalType] = useState("");
 
@@ -14,13 +15,17 @@ const List = ({ list, setList, getAllItems }) => {
   }, []);
 
   const handleModal = e => {
-    setItem_id(e.target.parentElement.parentElement.getAttribute("_id"));
-    setItemName(e.target.parentElement.parentElement.children[0].innerText);
+    setItem_id(e.target.parentElement.parentElement.parentElement.getAttribute("_id"));
+    setItemName(e.target.parentElement.parentElement.parentElement.children[0].innerText);
+    setItemCompleted(
+      e.target.parentElement.parentElement.parentElement.children[1].innerText === "✔️"
+        ? true
+        : false
+    );
     e.target.innerText === "🗑️" ? setModalType("delete") : setModalType("update");
 
     toggleShowModal(true);
   };
-  console.log(window.screen.width);
 
   return (
     <main className="toDoList">
@@ -35,12 +40,14 @@ const List = ({ list, setList, getAllItems }) => {
         setModalType={setModalType}
         getAllItems={getAllItems}
         setList={setList}
+        itemCompleted={itemCompleted}
+        setItemCompleted={setItemCompleted}
       />
       <table className="table border mt-5 shadow">
         <thead>
           <tr>
             <th scope="col">Item</th>
-            {window.screen.width >= 475 && <th scope="col">Completed?</th>}
+            {window.screen.width >= 600 && <th scope="col">Completed?</th>}
             <th scope="col">Edit Item</th>
             <th scope="col">Delete Item</th>
           </tr>

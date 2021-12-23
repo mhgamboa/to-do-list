@@ -74,7 +74,12 @@ const ModalComponent = props => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formItemCompleted">
-              <Form.Check inline />
+              {props.itemCompleted ? (
+                <Form.Check inline defaultChecked />
+              ) : (
+                <Form.Check inline />
+              )}
+
               <Form.Label>Completed?</Form.Label>
             </Form.Group>
 

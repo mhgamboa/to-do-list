@@ -1,38 +1,60 @@
 import { Navbar, Container, Button } from "react-bootstrap";
+import { useState, useEffect } from "react";
 
-const NavbarComponent = ({ authType, setAuthType }) => {
+const NavbarComponent = () => {
+  // const [buttonType, setButtonType] = useState("register");
+  const [windowLocation, setWindowLocation] = useState("");
+
+  useEffect(() => {
+    setWindowLocation(`/${window.location.href.split("/")[3]}`);
+  }, []);
+
   const handleLogout = () => {
     localStorage.clear();
+    setWindowLocation("/");
+    window.location.href = windowLocation;
+  };
+
+  const goToRegister = () => {
+    window.location.href = "/register";
+  };
+
+  const goToLogin = () => {
     window.location.href = "/";
   };
 
-  const handleRegister = () => {
-    // window.location.href = "/";
-    setAuthType("register");
-  };
-
-  const handleLogin = () => {
-    // window.location.href = "/register";
-    setAuthType("login");
-  };
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container className="justify-content-between ">
         <Navbar.Brand href="#home">To Do List</Navbar.Brand>
 
-        {localStorage.getItem("name") && localStorage.getItem("token") ? (
-          <Button variant="outline-light" onClick={handleLogout}>
-            Logout
+        {windowLocation === "/" ? (
+          <Button variant="outline-light" onClick={goToRegister}>
+            Register
           </Button>
-        ) : authType === "register" ? (
-          <Button variant="outline-light" onClick={handleLogin}>
+        ) : windowLocation === "/register" ? (
+          <Button variant="outline-light" onClick={goToLogin}>
             Login
           </Button>
         ) : (
-          <Button variant="outline-light" onClick={handleRegister}>
-            Register
+          <Button variant="outline-light" onClick={handleLogout}>
+            Logout
           </Button>
         )}
+
+        {/* {localStorage.getItem("name") && localStorage.getItem("token") ? (
+          <Button variant="outline-light" onClick={handleLogout}>
+            Logout
+          </Button>
+        ) : buttonType === "login" ? (
+          <Button variant="outline-light" onClick={goToLogin}>
+            Login
+          </Button>
+        ) : (
+          <Button variant="outline-light" onClick={goToRegister}>
+            Register
+          </Button>
+        )} */}
       </Container>
     </Navbar>
   );

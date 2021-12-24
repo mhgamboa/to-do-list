@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import NavbarComponent from "./components/NavbarComponent";
-// import { useState } from "react";
 
 import "./App.css";
 

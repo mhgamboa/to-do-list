@@ -28,12 +28,13 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 
-// routes
+// Serve production build
 app.use(express.static(path.join(__dirname, "client", "build")));
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
+// routes
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/items", require("./middleware/auth"), require("./routes/items"));
 

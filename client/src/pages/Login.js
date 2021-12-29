@@ -2,14 +2,10 @@ import { Form, Card, Button, Alert, Container, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Login = ({ type }) => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [viewError, setViewError] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("token") && localStorage.getItem("name"))
-      window.location.href = "/home";
-  }, []);
+const Login = ({ type, setCurrentPage, setLoggedIn }) => {
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertShow, setAlertShow] = useState(false);
+  const [alertVariant, setAlertVariant] = useState("");
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -21,38 +17,54 @@ const Login = ({ type }) => {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("name", res.data.user.name);
-      window.location.href = "/home";
+      setLoggedIn(true);
+      setCurrentPage("home");
     } catch (err) {
       err.response.data.msg
-        ? setErrorMessage(err.response.data.msg)
-        : setErrorMessage("An Error ocurred");
-      setViewError(true);
+        ? setAlertMessage(err.response.data.msg)
+        : setAlertMessage("An Error ocurred");
+      setAlertVariant("danger");
+      setAlertShow(true);
       setTimeout(() => {
-        setViewError(false);
+        setAlertShow(false);
       }, 3000);
     }
   };
 
   const handleRegister = async e => {
     e.preventDefault();
-    console.log("register");
 
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-    const name = e.target[2].value;
+    let email = e.target[0].value;
+    let password = e.target[1].value;
+    let name = e.target[2].value;
+
     try {
       const res = await axios.post("/api/v1/auth/register", { name, email, password });
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("name", res.data.user.name);
-      window.location.href = "/home";
+
+      setAlertMessage("Success!");
+      setAlertVariant("primary");
+      setAlertShow(true);
+
+      e.target[0].value = "";
+      e.target[1].value = "";
+      e.target[2].value = "";
+
+      await setTimeout(() => {
+        setAlertShow(false);
+      }, 3000);
+
+      setCurrentPage("login");
     } catch (err) {
       err.response.data.msg
-        ? setErrorMessage(err.response.data.msg)
-        : setErrorMessage("An Error ocurred");
-      setViewError(true);
+        ? setAlertMessage(err.response.data.msg)
+        : setAlertMessage("An Error ocurred");
+      setAlertVariant("danger");
+      setAlertShow(true);
       setTimeout(() => {
-        setViewError(false);
+        setAlertShow(false);
       }, 3000);
     }
   };
@@ -79,8 +91,8 @@ const Login = ({ type }) => {
               </Form.Group>
             )}
 
-            <Alert variant="danger" show={viewError} className="text-center" transition>
-              {errorMessage}
+            <Alert variant={alertVariant} show={alertShow} className="text-center" transition>
+              {alertMessage}
             </Alert>
 
             <Button variant="primary" type="submit">

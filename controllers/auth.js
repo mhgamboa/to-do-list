@@ -7,6 +7,10 @@ const register = async (req, res) => {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
+  if (password.length < 5) {
+    return res.status(400).json({ msg: "Password must be 5 characters long" });
+  }
+
   const duplicateEmail = await User.findOne({ email });
   if (duplicateEmail) {
     return res.status(400).json({ msg: "Email already exists" });

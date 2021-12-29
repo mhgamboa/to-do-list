@@ -1,42 +1,27 @@
 import { Navbar, Container, Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
 
-const NavbarComponent = () => {
-  const [windowLocation, setWindowLocation] = useState("");
-
-  useEffect(() => {
-    setWindowLocation(`/${window.location.href.split("/")[3]}`);
-  }, []);
-
+const NavbarComponent = ({ loggedIn, setLoggedIn, currentPage, setCurrentPage }) => {
   const handleLogout = () => {
     localStorage.clear();
-    setWindowLocation("/");
-    window.location.href = windowLocation;
-  };
-
-  const goToRegister = () => {
-    window.location.href = "/register";
-  };
-
-  const goToLogin = () => {
-    window.location.href = "/";
+    setLoggedIn(false);
+    setCurrentPage("login");
   };
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container className="justify-content-between ">
         <Navbar.Brand href="#home">To Do List</Navbar.Brand>
-        {windowLocation === "/" ? (
-          <Button variant="outline-light" onClick={goToRegister}>
-            Register
-          </Button>
-        ) : windowLocation === "/register" ? (
-          <Button variant="outline-light" onClick={goToLogin}>
-            Login
-          </Button>
-        ) : (
+        {loggedIn ? (
           <Button variant="outline-light" onClick={handleLogout}>
             Logout
+          </Button>
+        ) : currentPage === "login" ? (
+          <Button variant="outline-light" onClick={() => setCurrentPage("register")}>
+            Register
+          </Button>
+        ) : (
+          <Button variant="outline-light" onClick={() => setCurrentPage("login")}>
+            Login
           </Button>
         )}
       </Container>

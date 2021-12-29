@@ -1,20 +1,36 @@
-import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import NavbarComponent from "./components/NavbarComponent";
+import { useState, useEffect } from "react";
 
 import "./App.css";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentPage, setCurrentPage] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setCurrentPage("home");
+      setLoggedIn(true);
+    }
+    setCurrentPage("login");
+  }, []);
+
   return (
     <div className="App">
-      <NavbarComponent />
+      <NavbarComponent
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       <div className="main m-5 d-flex justify-content-center">
-        <Routes>
-          <Route path="/" element={<Login type="login" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Login type="register" />} />
-        </Routes>
+        {loggedIn ? (
+          <Home />
+        ) : (
+          <Login type={currentPage} setCurrentPage={setCurrentPage} setLoggedIn={setLoggedIn} />
+        )}
       </div>
     </div>
   );

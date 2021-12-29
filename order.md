@@ -48,3 +48,12 @@
    5. Design component tree. Build basic structure
    6. Create Front end design for each component
    7. Use Axios to login to backend where needed
+3. Deploy
+
+```
+// to serve production build. This goes in your server app.js
+app.use(express.static(path.join(__dirname, "client", "build")));
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+```

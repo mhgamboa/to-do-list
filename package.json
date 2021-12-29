@@ -2,7 +2,7 @@
   "name": "to-do-list",
   "version": "1.0.0",
   "description": "First Mern Stack api with complete REST api",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "client-install": "cd client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",

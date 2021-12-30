@@ -15,6 +15,7 @@ const app = express();
 const port = process.env.PORT || 8090;
 const connectDB = require("./db/connect");
 
+console.log(port);
 // middleware
 app.set("trust proxy", 1);
 app.use(

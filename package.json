@@ -10,6 +10,7 @@
     "install-client": "cd client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon app.js",
+    "herokuserver": "node app.js",
     "client": "cd client && npm start",
     "build": "cd client && npm run build",
     "dev": "concurrently --kill-others -n 'server,client' -c 'yellow,green'  \"npm run server\" \"npm run client\"",

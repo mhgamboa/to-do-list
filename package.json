@@ -14,7 +14,7 @@
     "client": "cd client && npm start",
     "build": "cd client && npm run build",
     "dev": "concurrently --kill-others -n 'server,client' -c 'yellow,green'  \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "npm install && npm run install-client && npm run build",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
   },
   "repository": {

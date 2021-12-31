@@ -8,14 +8,12 @@
   },
   "scripts": {
     "install-client": "cd client && npm install",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon app.js",
-    "herokuserver": "node app.js",
-    "client": "cd client && npm start",
     "build-client": "cd client && npm run build",
-    "dev": "concurrently --kill-others-on-fail -n 'server,client' -c 'yellow,green'  \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "npm run install-client && npm run build-client",
-    "start": "node app.js"
+    "herokuserver": "node app.js",
+    "server": "nodemon app.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently --kill-others-on-fail -n 'server,client' -c 'yellow,green'  \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",

@@ -8,6 +8,11 @@ const cors = require("cors");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
 
+// swagger
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
 // express, connectDB and port
 const express = require("express");
 
@@ -34,6 +39,9 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
+
+// Serve swagger documentation
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes
 app.use("/api/v1/auth", require("./routes/auth"));

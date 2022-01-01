@@ -2,6 +2,10 @@
 
 - First Mern Stack api with complete REST api
 
+## Documentation
+
+- You can view the documentation at [mgamboa-to-do.herokuapp.com/api-docs](https://mgamboa-to-do.herokuapp.com/api-docs)
+
 ## Mern (first) Attempt
 
 - Trying to make my first fullstack project

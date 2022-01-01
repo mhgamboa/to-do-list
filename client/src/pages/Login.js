@@ -1,5 +1,5 @@
 import { Form, Card, Button, Alert, Container, Row } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const Login = ({ type, setCurrentPage, setLoggedIn }) => {

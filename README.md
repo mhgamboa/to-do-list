@@ -1,95 +1,18 @@
-# to-do-list
+# To Do List
 
-- First Mern Stack api with complete REST api
+This is my first MERN stack api with complete REST api. You can view the project live at [mgamboa-to-do.herokuapp.com](https://mgamboa-to-do.herokuapp.com/). I was mainly focusing on the backend functionality, so the frontend will not be very polished.
+
+## App Explanation
+
+A very simple to-do app.
+
+- You can create a new user by clicking "Register" on the navbar and filling out & submitting the form. This will create a new user in MongoDB Atlas.
+  - **No password is directly saved in the DB** - passwords are only stored after being hashed by bcrypt.
+- Upon signing in a [Json Webtoken](https://www.npmjs.com/package/jsonwebtoken) (JWT) is signed and sent to the client's browser where it is stored in the local storage.
+  - Once logged in users can perform simple CRUD operations on their to-do items, which is verified through the JWT. The UI should be pretty intuitive.
+- The web app connects to the DB using the [Mongoose](https://www.npmjs.com/package/mongoose) ODM.
+- Deployed with [Heroku](https://heroku.com/). The `heroku-postbuild` script builds the client side after installing the client dependencies. The build is then served with Express.
 
 ## Documentation
 
-- You can view the documentation at [mgamboa-to-do.herokuapp.com/api-docs](https://mgamboa-to-do.herokuapp.com/api-docs)
-
-## Mern (first) Attempt
-
-- Trying to make my first fullstack project
-
-### Takeaways
-
-- The [MongoClient](https://mongodb.github.io/node-mongodb-native/4.1/classes/MongoClient.html) is a class instantiated from `mongodb.MongoClient`. It is what you use to intereact with your Mongo Database in anyway
-- You can connect your MongeClient to your cluster with `MongoClient.connect()`, which returns a promise. [Connect](https://mongodb.github.io/node-mongodb-native/4.1/classes/MongoClient.html#connect) simply connects your app to your cluster. Example:
-
-```
-const client = new MongoClient(process.env.ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-client.connect((err) => {
-  const database = client.db("dbName");
-  const collection = database.collection("collectionName");
-
-  client.close();
-});
-```
-
-- When your done with your connection you'll want to run `client.close()` to close the connection
-- `app.use(express.json())` Parses the data sent in a post request
-
-**MAKING REQUESTS FROM FRONTEND TO BACKEND**
-
-- In `client`folder run `npm i axios`
-- create a file `src/http-common.js`. Put the following code in this file:
-
-```
-import axios from "axios";
-
-export default axios.create({
-  baseURL: "http://localhost:8000", //Put whatever your server port number is
-  header: {
-    "Content-type": "application/json",
-  },
-});
-```
-
-- create a file `src/services/toDo.js`. Put the following code in this file:
-
-```
-import http from "../http-common.js";
-
-class toDoDataService {
-  getItems() {
-    return http.get("/get/Route");
-  }
-
-  delteItems() {
-    return http.delete("/delete/Route");
-  }
-}
-
-export default new toDoDataService();
-```
-
-- In app.js put in the following code:
-
-```
-import ToDoService from "./services/toDo";
-...
-const [list, updateList] = useState([]);
-
-const retrieveToDos = () => {
-  ToDoService.getItems().then((response) => {
-    updateList(response.data);
-  }).catch(err => console.error(err));
-};
-```
-
-## Heroku Steps
-
-[Relevant article](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-
-1. `cd my-app`
-2. Use a [Procfile](https://devcenter.heroku.com/articles/procfile) to explicitly declare what command should be executed to start your app
-   - It must exist in the root of your app
-   - It has no file extension
-   - Syntax is `<process type>: <command>`. Example: `web: npm start`
-   - The `web` process type is how you recieve external HTTP traffic
-3. `heroku create unique-app-name` -> creates heroku app
-4. `git push heroku main` -> deploys heroku app
-5. `heroku ps:scale web=1` -> Ensures at leasont one instance of app is running
-6. `heroku open` -> opens deployed app in browser
-7. `heroku logs --tail` -> view running stream of logs. `control+c` to stop streaming the logs
-8.
+- You can view the documentation at [mgamboa-to-do.herokuapp.com/api-docs](https://mgamboa-to-do.herokuapp.com/api-docs).
